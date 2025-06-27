@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TEST UJIAN ONLINE</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background: #f0f0f0;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 800px;
+        margin: 30px auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .question {
+        margin-bottom: 20px;
+      }
+      .options {
+        list-style: none;
+        padding: 0;
+      }
+      .options li {
+        margin-bottom: 10px;
+      }
+      .nav {
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        padding: 10px;
+        border-top: 1px solid #ccc;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        left: 0;
+      }
+      .nav button {
+        font-size: 18px;
+        padding: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        position: relative;
+      }
+      .nav button:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        white-space: nowrap;
+        font-size: 14px;
+      }
+      .number-panel {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        height: 100%;
+        width: 250px;
+        background: #fff;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        transition: right 0.3s ease;
+      }
+      .number-panel.show {
+        right: 0;
+      }
+      .number-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      .number-list button {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+      }
+      .ragu {
+        background: orange;
+        color: white;
+      }
+      .yakin {
+        background: green;
+        color: white;
+      }
+      .soal-terpilih {
+        background: purple;
+        color: white;
+      }
+      #skor-akhir {
+        text-align: center;
+        font-size: 20px;
+        padding: 20px;
+        background: #dff0d8;
+        color: #3c763d;
+        margin-top: 20px;
+        border-radius: 10px;
+        display: none;
+      }
+
+      @media (max-width: 480px) {
+        .nav button {
+          font-size: 14px;
+          padding: 6px;
+        }
+
+        .number-list button {
+          width: 28px;
+          height: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="question-container"></div>
+      <div id="skor-akhir"></div>
+    </div>
+
+    <div class="number-panel" id="number-panel">
+      <h4>Daftar Soal</h4>
+      <div class="number-list" id="number-list"></div>
+    </div>
+
+    <div class="nav">
+      <button onclick="prevQuestion()" data-tooltip="Mundur (Soal sebelumnya)">⬅</button>
+      <button onclick="markRagu()" data-tooltip="Tandai ragu-ragu">😐</button>
+      <button onclick="markYakin()" data-tooltip="Tandai yakin">😊</button>
+      <button onclick="toggleNumberList()" data-tooltip="Lihat daftar soal">🔢</button>
+      <button onclick="hapusJawaban()" data-tooltip="Hapus jawaban">🗑️</button>
+      <button onclick="submitExam()" data-tooltip="Selesaikan ujian">✅</button>
+      <button onclick="nextQuestion()" data-tooltip="Maju (Soal berikutnya)">➡</button>
+    </div>
+
+    <script>
+      const questions = [
+        // GRAMMAR - DETERMINER
+        { text: 'I need ___ pencil to write.', options: ['a', 'an', 'the', 'some', 'any'], correct: 0, level: 'menengah', answer: null, status: '' },
+        { text: '___ students in my class are very smart.', options: ['A', 'An', 'The', 'This', 'That'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: 'Can you give me ___ water?', options: ['a', 'an', 'the', 'some', 'any'], correct: 3, level: 'menengah', answer: null, status: '' },
+
+        // GRAMMAR - QUANTIFIER
+        { text: "There isn't ___ milk in the refrigerator.", options: ['many', 'much', 'a few', 'a little', 'some'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'I have ___ friends in Jakarta.', options: ['much', 'many', 'a little', 'any', 'some'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'She has ___ experience in teaching.', options: ['many', 'much', 'few', 'little', 'a little'], correct: 4, level: 'menengah', answer: null, status: '' },
+
+        // GRAMMAR - PRONOUN
+        { text: 'This bag is not mine. It belongs to ___.', options: ['she', 'her', 'hers', 'him', 'his'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: '___ house is bigger than ___.', options: ['Their, our', 'Theirs, ours', 'They, we', 'Them, us', 'Their, ours'], correct: 4, level: 'sulit', answer: null, status: '' },
+        { text: '___ did you meet at the mall yesterday?', options: ['What', 'Where', 'Who', 'When', 'Why'], correct: 2, level: 'menengah', answer: null, status: '' },
+
+        // GRAMMAR - SIMPLE PRESENT TENSE
+        { text: 'My sister ___ coffee every morning.', options: ['drink', 'drinks', 'drank', 'drinking', 'will drink'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'We ___ not play football on Sundays.', options: ['does', 'do', 'did', 'are', 'is'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: '___ she speak Japanese fluently?', options: ['Do', 'Does', 'Did', 'Is', 'Are'], correct: 1, level: 'menengah', answer: null, status: '' },
+
+        // GRAMMAR - SIMPLE PAST TENSE
+        { text: 'They ___ a movie last Saturday.', options: ['watch', 'watches', 'watched', 'watching', 'will watch'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: 'I ___ not go to the party yesterday.', options: ['do', 'does', 'did', 'was', 'were'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: 'Where ___ you born?', options: ['do', 'does', 'did', 'were', 'was'], correct: 3, level: 'menengah', answer: null, status: '' },
+
+        // GRAMMAR - SIMPLE FUTURE TENSE
+        { text: "She ___ arrive at 8 o'clock tonight.", options: ['will', 'would', 'should', 'could', 'might'], correct: 0, level: 'menengah', answer: null, status: '' },
+        { text: '___ they join us for dinner?', options: ['Will', 'Would', 'Should', 'Could', 'Do'], correct: 0, level: 'menengah', answer: null, status: '' },
+        { text: 'I think it ___ rain tomorrow.', options: ['will', 'would', 'should', 'could', 'do'], correct: 0, level: 'menengah', answer: null, status: '' },
+
+        // TEXT - NARRATIVE TEXT
+        {
+          text: 'What is the correct order of narrative text structure?',
+          options: ['Complication - Orientation - Resolution', 'Orientation - Complication - Resolution', 'Resolution - Orientation - Complication', 'Orientation - Resolution - Complication', 'Complication - Resolution - Orientation'],
+          correct: 1,
+          level: 'sulit',
+          answer: null,
+          status: '',
+        },
+        { text: '"Once upon a time" is usually found in the ___ of narrative text.', options: ['complication', 'resolution', 'orientation', 'climax', 'conclusion'], correct: 2, level: 'sulit', answer: null, status: '' },
+
+        // TEXT - DESCRIPTIVE TEXT
+        {
+          text: 'Which sentence is commonly used in descriptive text?',
+          options: ['First, we need to prepare the ingredients', 'The cat has soft, white fur', 'Yesterday, I went to the beach', 'Finally, we reached our destination', 'I will visit my grandmother tomorrow'],
+          correct: 1,
+          level: 'menengah',
+          answer: null,
+          status: '',
+        },
+        { text: 'Descriptive text usually uses ___ tense.', options: ['simple past', 'simple future', 'simple present', 'past perfect', 'future perfect'], correct: 2, level: 'menengah', answer: null, status: '' },
+
+        // TEXT - RECOUNT TEXT
+        { text: 'Which word is often used to start a recount text?', options: ['Once upon a time', 'Last week', 'Tomorrow', 'Every day', 'Usually'], correct: 1, level: 'menengah', answer: null, status: '' },
+        {
+          text: 'The language feature of recount text includes ___',
+          options: ['simple present tense', 'simple future tense', 'simple past tense', 'present continuous tense', 'past continuous tense'],
+          correct: 2,
+          level: 'sulit',
+          answer: null,
+          status: '',
+        },
+
+        // VOCABULARY - BODY PARTS
+        { text: 'We use our ___ to see.', options: ['ears', 'nose', 'mouth', 'eyes', 'hands'], correct: 3, level: 'menengah', answer: null, status: '' },
+        { text: 'The ___ is used for hearing.', options: ['eye', 'ear', 'nose', 'mouth', 'hand'], correct: 1, level: 'menengah', answer: null, status: '' },
+
+        // VOCABULARY - PROFESSIONS
+        { text: 'A person who teaches students is called a ___', options: ['doctor', 'nurse', 'teacher', 'farmer', 'driver'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: 'Who works in a hospital and treats patients?', options: ['Teacher', 'Doctor', 'Farmer', 'Driver', 'Chef'], correct: 1, level: 'menengah', answer: null, status: '' },
+
+        // VOCABULARY - TRANSPORTATION
+        { text: 'Which transportation can fly?', options: ['Car', 'Bus', 'Train', 'Airplane', 'Bicycle'], correct: 3, level: 'menengah', answer: null, status: '' },
+        { text: 'We usually take a ___ to cross the ocean.', options: ['car', 'bus', 'train', 'ship', 'bicycle'], correct: 3, level: 'menengah', answer: null, status: '' },
+
+        // VOCABULARY - WEATHER
+        { text: "When it's ___, we need an umbrella.", options: ['sunny', 'cloudy', 'windy', 'rainy', 'hot'], correct: 3, level: 'menengah', answer: null, status: '' },
+        { text: 'The opposite of "hot" weather is ___', options: ['warm', 'cool', 'cold', 'sunny', 'windy'], correct: 2, level: 'menengah', answer: null, status: '' },
+
+        // READING COMPREHENSION
+        {
+          text: 'Read this text: "Tom is a pilot. He flies airplanes every day. He likes his job very much because he can travel to many countries." What is Tom\'s profession?',
+          options: ['Teacher', 'Doctor', 'Pilot', 'Driver', 'Farmer'],
+          correct: 2,
+          level: 'menengah',
+          answer: null,
+          status: '',
+        },
+        {
+          text: 'From the text above, why does Tom like his job?',
+          options: ["Because it's easy", 'Because he gets high salary', 'Because he can travel to many countries', 'Because he works at home', 'Because he has many friends'],
+          correct: 2,
+          level: 'menengah',
+          answer: null,
+          status: '',
+        },
+
+        // GRAMMAR - COMPARISON
+        { text: 'Mount Everest is the ___ mountain in the world.', options: ['high', 'higher', 'highest', 'more high', 'most high'], correct: 2, level: 'sulit', answer: null, status: '' },
+        { text: 'My bag is ___ than yours.', options: ['heavy', 'heavier', 'heaviest', 'more heavy', 'most heavy'], correct: 1, level: 'menengah', answer: null, status: '' },
+
+        // PREPOSITIONS
+        { text: 'The students are ___ the classroom.', options: ['in', 'on', 'at', 'under', 'above'], correct: 0, level: 'menengah', answer: null, status: '' },
+        { text: 'The meeting will start ___ Monday.', options: ['in', 'on', 'at', 'by', 'for'], correct: 1, level: 'menengah', answer: null, status: '' },
+
+        // QUESTION FORMATION
+        { text: '___ old are you?', options: ['What', 'Where', 'When', 'How', 'Why'], correct: 3, level: 'menengah', answer: null, status: '' },
+        { text: '___ color is your favorite?', options: ['What', 'Where', 'When', 'How', 'Why'], correct: 0, level: 'menengah', answer: null, status: '' },
+
+        // MODAL VERBS
+        { text: 'Students ___ wear uniform to school.', options: ['can', 'could', 'must', 'might', 'would'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: '___ you please help me carry this bag?', options: ['Can', 'Must', 'Should', 'Will', 'May'], correct: 0, level: 'menengah', answer: null, status: '' },
+
+        // SYNONYMS AND ANTONYMS
+        { text: 'The synonym of "clever" is ___', options: ['stupid', 'smart', 'lazy', 'tired', 'angry'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'The antonym of "easy" is ___', options: ['simple', 'hard', 'soft', 'light', 'fast'], correct: 1, level: 'menengah', answer: null, status: '' },
+
+        // TEXT TYPES
+        { text: 'A recipe is an example of ___ text.', options: ['narrative', 'descriptive', 'procedure', 'recount', 'report'], correct: 2, level: 'sulit', answer: null, status: '' },
+        {
+          text: 'The main purpose of a report text is to ___',
+          options: ['entertain readers', 'tell past events', 'give general information', 'persuade readers', 'describe specific things'],
+          correct: 2,
+          level: 'sulit',
+          answer: null,
+          status: '',
+        },
+
+        // DIALOGUE
+        { text: 'A: "Thank you for your help." B: "___"', options: ["You're welcome", "I'm sorry", 'Excuse me', 'How are you', 'See you later'], correct: 0, level: 'menengah', answer: null, status: '' },
+        { text: 'What do you say when you want to borrow something?', options: ['Give me that', 'I want that', 'May I borrow this?', "That's mine", 'I need it'], correct: 2, level: 'menengah', answer: null, status: '' },
+
+        // GENERAL KNOWLEDGE
+        {
+          text: 'Which sentence shows future plan?',
+          options: ['I study English every day', 'I studied English yesterday', 'I am going to study English tomorrow', 'I have studied English', 'I was studying English'],
+          correct: 2,
+          level: 'sulit',
+          answer: null,
+          status: '',
+        },
+        { text: 'The correct plural form of "foot" is ___', options: ['foots', 'feet', 'footes', 'foot', 'feets'], correct: 1, level: 'sulit', answer: null, status: '' },
+      ];
+
+      let current = 0;
+
+      function renderQuestion() {
+        const q = questions[current];
+        const container = document.getElementById('question-container');
+        container.innerHTML = `
+        <div class="question">
+          <h3>Soal No. ${current + 1}</h3>
+          <p>${q.text}</p>
+          <ul class="options">
+            ${q.options
+              .map(
+                (opt, idx) => `
+              <li>
+                <label>
+                  <input type="radio" name="answer" value="${idx}" ${q.answer == idx ? 'checked' : ''} onclick="selectAnswer(${idx})">
+                  ${opt}
+                </label>
+              </li>
+            `
+              )
+              .join('')}
+          </ul>
+        </div>`;
+        renderNumberList();
+      }
+
+      function renderNumberList() {
+        const list = document.getElementById('number-list');
+        list.innerHTML = '';
+        questions.forEach((q, i) => {
+          const btn = document.createElement('button');
+          btn.textContent = i + 1;
+          if (i === current) btn.classList.add('soal-terpilih');
+          if (q.status === 'ragu') btn.classList.add('ragu');
+          else if (q.answer !== null) btn.classList.add('yakin');
+          btn.onclick = () => {
+            current = i;
+            renderQuestion();
+          };
+          list.appendChild(btn);
+        });
+      }
+
+      function selectAnswer(index) {
+        questions[current].answer = index;
+        renderQuestion();
+      }
+
+      function prevQuestion() {
+        if (current > 0) current--;
+        renderQuestion();
+      }
+
+      function nextQuestion() {
+        if (current < questions.length - 1) current++;
+        renderQuestion();
+      }
+
+      function markRagu() {
+        questions[current].status = 'ragu';
+        renderQuestion();
+      }
+
+      function markYakin() {
+        questions[current].status = 'yakin';
+        renderQuestion();
+      }
+
+      function toggleNumberList() {
+        document.getElementById('number-panel').classList.toggle('show');
+      }
+
+      function hapusJawaban() {
+        questions[current].answer = null;
+        questions[current].status = '';
+        renderQuestion();
+      }
+
+      function submitExam() {
+        let skor = 0;
+        questions.forEach((q) => {
+          if (q.answer !== null && q.answer === q.correct) {
+            skor += q.level === 'sulit' ? 4 : 2;
+          }
+        });
+        document.getElementById('skor-akhir').style.display = 'block';
+        document.getElementById('skor-akhir').innerText = `Skor akhir kamu: ${skor}`;
+      }
+
+      renderQuestion();
+    </script>
+  </body>
+</html>
