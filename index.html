@@ -368,14 +368,23 @@
       }
 
       function submitExam() {
-        let skor = 0;
+        if (!confirm('Apakah kamu yakin ingin menyelesaikan ujian?')) return;
+
+        let total = 0;
+        let nilai = 0;
+
         questions.forEach((q) => {
-          if (q.answer !== null && q.answer === q.correct) {
-            skor += q.level === 'sulit' ? 4 : 2;
+          if (q.answer !== null) {
+            if (q.answer === q.correct) {
+              nilai += q.level === 'sulit' ? 4 : 2;
+            }
           }
+          total += q.level === 'sulit' ? 4 : 2;
         });
-        document.getElementById('skor-akhir').style.display = 'block';
-        document.getElementById('skor-akhir').innerText = `Skor akhir kamu: ${skor}`;
+
+        const skorDiv = document.getElementById('skor-akhir');
+        skorDiv.innerHTML = `<strong>Skor akhir:</strong> ${nilai} / ${total} poin`;
+        skorDiv.style.display = 'block';
       }
 
       renderQuestion();
