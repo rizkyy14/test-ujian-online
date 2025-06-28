@@ -107,6 +107,98 @@
         border-radius: 10px;
         display: none;
       }
+      .detail-button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 15px;
+      }
+      .detail-button:hover {
+        background: #0056b3;
+      }
+      .review-panel {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        z-index: 1000;
+      }
+      .review-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 90%;
+        max-height: 80%;
+        overflow-y: auto;
+        width: 700px;
+      }
+      .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 10px;
+      }
+      .close-button {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 5px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .close-button:hover {
+        background: #c82333;
+      }
+      .review-item {
+        margin-bottom: 15px;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 5px solid;
+      }
+      .correct {
+        background: #d4edda;
+        border-left-color: #28a745;
+        color: #155724;
+      }
+      .incorrect {
+        background: #f8d7da;
+        border-left-color: #dc3545;
+        color: #721c24;
+      }
+      .unanswered {
+        background: #fff3cd;
+        border-left-color: #ffc107;
+        color: #856404;
+      }
+      .question-text {
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+      .answer-info {
+        font-size: 14px;
+      }
+      .correct-answer {
+        color: #28a745;
+        font-weight: bold;
+      }
+      .wrong-answer {
+        color: #dc3545;
+        font-weight: bold;
+      }
 
       @media (max-width: 480px) {
         .nav button {
@@ -117,6 +209,11 @@
         .number-list button {
           width: 28px;
           height: 28px;
+        }
+
+        .review-content {
+          width: 95%;
+          padding: 15px;
         }
       }
     </style>
@@ -130,6 +227,16 @@
     <div class="number-panel" id="number-panel">
       <h4>Daftar Soal</h4>
       <div class="number-list" id="number-list"></div>
+    </div>
+
+    <div class="review-panel" id="review-panel">
+      <div class="review-content">
+        <div class="review-header">
+          <h3>Detail Jawaban</h3>
+          <button class="close-button" onclick="closeReview()">Tutup</button>
+        </div>
+        <div id="review-list"></div>
+      </div>
     </div>
 
     <div class="nav">
@@ -289,6 +396,7 @@
       ];
 
       let current = 0;
+      let examFinished = false;
 
       function renderQuestion() {
         const q = questions[current];
@@ -303,7 +411,7 @@
                 (opt, idx) => `
               <li>
                 <label>
-                  <input type="radio" name="answer" value="${idx}" ${q.answer == idx ? 'checked' : ''} onclick="selectAnswer(${idx})">
+                  <input type="radio" name="answer" value="${idx}" ${q.answer == idx ? 'checked' : ''} onclick="selectAnswer(${idx})" ${examFinished ? 'disabled' : ''}>
                   ${opt}
                 </label>
               </li>
@@ -333,8 +441,10 @@
       }
 
       function selectAnswer(index) {
-        questions[current].answer = index;
-        renderQuestion();
+        if (!examFinished) {
+          questions[current].answer = index;
+          renderQuestion();
+        }
       }
 
       function prevQuestion() {
@@ -348,13 +458,17 @@
       }
 
       function markRagu() {
-        questions[current].status = 'ragu';
-        renderQuestion();
+        if (!examFinished) {
+          questions[current].status = 'ragu';
+          renderQuestion();
+        }
       }
 
       function markYakin() {
-        questions[current].status = 'yakin';
-        renderQuestion();
+        if (!examFinished) {
+          questions[current].status = 'yakin';
+          renderQuestion();
+        }
       }
 
       function toggleNumberList() {
@@ -362,12 +476,16 @@
       }
 
       function hapusJawaban() {
-        questions[current].answer = null;
-        questions[current].status = '';
-        renderQuestion();
+        if (!examFinished) {
+          questions[current].answer = null;
+          questions[current].status = '';
+          renderQuestion();
+        }
       }
 
       function submitExam() {
+        if (examFinished) return;
+
         if (!confirm('Apakah kamu yakin ingin menyelesaikan ujian?')) return;
 
         let total = 0;
@@ -382,10 +500,68 @@
           total += q.level === 'sulit' ? 4 : 2;
         });
 
+        examFinished = true;
         const skorDiv = document.getElementById('skor-akhir');
-        skorDiv.innerHTML = `<strong>Skor akhir:</strong> ${nilai} / ${total} poin`;
+        skorDiv.innerHTML = `
+          <strong>Skor akhir:</strong> ${nilai} / ${total} poin
+          <br>
+          <button class="detail-button" onclick="showReview()">Lihat Detail Jawaban</button>
+        `;
         skorDiv.style.display = 'block';
+        renderQuestion(); // Refresh to disable inputs
       }
+
+      function showReview() {
+        const reviewList = document.getElementById('review-list');
+        let reviewHTML = '';
+
+        questions.forEach((q, index) => {
+          let statusClass = '';
+          let statusText = '';
+          let answerInfo = '';
+
+          if (q.answer === null) {
+            statusClass = 'unanswered';
+            statusText = 'Tidak dijawab';
+            answerInfo = `<div class="answer-info">Jawaban yang benar: <span class="correct-answer">${q.options[q.correct]}</span></div>`;
+          } else if (q.answer === q.correct) {
+            statusClass = 'correct';
+            statusText = 'Benar';
+            answerInfo = `<div class="answer-info">Jawaban Anda: <span class="correct-answer">${q.options[q.answer]}</span> ✓</div>`;
+          } else {
+            statusClass = 'incorrect';
+            statusText = 'Salah';
+            answerInfo = `
+              <div class="answer-info">
+                Jawaban Anda: <span class="wrong-answer">${q.options[q.answer]}</span> ✗<br>
+                Jawaban yang benar: <span class="correct-answer">${q.options[q.correct]}</span>
+              </div>
+            `;
+          }
+
+          reviewHTML += `
+            <div class="review-item ${statusClass}">
+              <div class="question-text">Soal ${index + 1}: ${q.text}</div>
+              <div style="margin: 8px 0; font-weight: bold;">${statusText}</div>
+              ${answerInfo}
+            </div>
+          `;
+        });
+
+        reviewList.innerHTML = reviewHTML;
+        document.getElementById('review-panel').style.display = 'block';
+      }
+
+      function closeReview() {
+        document.getElementById('review-panel').style.display = 'none';
+      }
+
+      // Close review panel when clicking outside
+      document.getElementById('review-panel').addEventListener('click', function (e) {
+        if (e.target === this) {
+          closeReview();
+        }
+      });
 
       renderQuestion();
     </script>
