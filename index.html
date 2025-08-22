@@ -251,148 +251,156 @@
 
     <script>
       const questions = [
-        // GRAMMAR - DETERMINER
-        { text: 'I need ___ pencil to write.', options: ['a', 'an', 'the', 'some', 'any'], correct: 0, level: 'menengah', answer: null, status: '' },
-        { text: '___ students in my class are very smart.', options: ['A', 'An', 'The', 'This', 'That'], correct: 2, level: 'menengah', answer: null, status: '' },
-        { text: 'Can you give me ___ water?', options: ['a', 'an', 'the', 'some', 'any'], correct: 3, level: 'menengah', answer: null, status: '' },
+        // GRAMMAR / STRUCTURE
+        // 1) TENSES – PRESENT CONTINUOUS
+        { text: 'Listen! The baby ___ loudly now.', options: ['cries', 'is crying', 'cried', 'will cry', 'has cried'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'Be quiet, the teacher ___ to us.', options: ['talks', 'is talking', 'talked', 'will talk', 'has talked'], correct: 1, level: 'sulit', answer: null, status: '' },
 
-        // GRAMMAR - QUANTIFIER
-        { text: "There isn't ___ milk in the refrigerator.", options: ['many', 'much', 'a few', 'a little', 'some'], correct: 1, level: 'menengah', answer: null, status: '' },
-        { text: 'I have ___ friends in Jakarta.', options: ['much', 'many', 'a little', 'any', 'some'], correct: 1, level: 'menengah', answer: null, status: '' },
-        { text: 'She has ___ experience in teaching.', options: ['many', 'much', 'few', 'little', 'a little'], correct: 4, level: 'menengah', answer: null, status: '' },
+        // 2) TENSES – SIMPLE PRESENT
+        { text: 'The sun ___ in the east.', options: ['rise', 'rises', 'rose', 'is rising', 'has risen'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'Do your parents ___ coffee in the morning?', options: ['drinks', 'drink', 'drank', 'drinking', 'to drink'], correct: 1, level: 'sulit', answer: null, status: '' },
 
-        // GRAMMAR - PRONOUN
-        { text: 'This bag is not mine. It belongs to ___.', options: ['she', 'her', 'hers', 'him', 'his'], correct: 1, level: 'menengah', answer: null, status: '' },
-        { text: '___ house is bigger than ___.', options: ['Their, our', 'Theirs, ours', 'They, we', 'Them, us', 'Their, ours'], correct: 4, level: 'sulit', answer: null, status: '' },
-        { text: '___ did you meet at the mall yesterday?', options: ['What', 'Where', 'Who', 'When', 'Why'], correct: 2, level: 'menengah', answer: null, status: '' },
+        // 3) TENSES – SIMPLE PAST
+        { text: 'We ___ to the museum last Sunday.', options: ['go', 'goes', 'went', 'going', 'gone'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: 'She ___ a new bag yesterday.', options: ['buys', 'buy', 'bought', 'buying', 'has bought'], correct: 2, level: 'menengah', answer: null, status: '' },
 
-        // GRAMMAR - SIMPLE PRESENT TENSE
-        { text: 'My sister ___ coffee every morning.', options: ['drink', 'drinks', 'drank', 'drinking', 'will drink'], correct: 1, level: 'menengah', answer: null, status: '' },
-        { text: 'We ___ not play football on Sundays.', options: ['does', 'do', 'did', 'are', 'is'], correct: 1, level: 'menengah', answer: null, status: '' },
-        { text: '___ she speak Japanese fluently?', options: ['Do', 'Does', 'Did', 'Is', 'Are'], correct: 1, level: 'menengah', answer: null, status: '' },
+        // 4) TENSES – SIMPLE FUTURE
+        { text: 'I ___ visit my grandmother tomorrow.', options: ['am', 'will', 'was', 'have', 'had'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: '___ you join the school trip next week?', options: ['Do', 'Did', 'Will', 'Are', 'Have'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: 'It looks cloudy. I think it ___ rain.', options: ['will', 'does', 'did', 'is', 'has'], correct: 0, level: 'sulit', answer: null, status: '' },
 
-        // GRAMMAR - SIMPLE PAST TENSE
-        { text: 'They ___ a movie last Saturday.', options: ['watch', 'watches', 'watched', 'watching', 'will watch'], correct: 2, level: 'menengah', answer: null, status: '' },
-        { text: 'I ___ not go to the party yesterday.', options: ['do', 'does', 'did', 'was', 'were'], correct: 2, level: 'menengah', answer: null, status: '' },
-        { text: 'Where ___ you born?', options: ['do', 'does', 'did', 'were', 'was'], correct: 3, level: 'menengah', answer: null, status: '' },
+        // 5) ADJECTIVE
+        { text: 'This problem is very ___; I need help.', options: ['easy', 'easier', 'easiest', 'difficult', 'most easy'], correct: 3, level: 'menengah', answer: null, status: '' },
+        { text: 'The soup tastes ___.', options: ['delicious', 'deliciously', 'delight', 'delighted', 'delighting'], correct: 0, level: 'menengah', answer: null, status: '' },
+        { text: 'Choose the adjective: The room feels ___ after we opened the window.', options: ['fresh', 'freshly', 'freshness', 'refresh', 'refreshedly'], correct: 0, level: 'sulit', answer: null, status: '' },
 
-        // GRAMMAR - SIMPLE FUTURE TENSE
-        { text: "She ___ arrive at 8 o'clock tonight.", options: ['will', 'would', 'should', 'could', 'might'], correct: 0, level: 'menengah', answer: null, status: '' },
-        { text: '___ they join us for dinner?', options: ['Will', 'Would', 'Should', 'Could', 'Do'], correct: 0, level: 'menengah', answer: null, status: '' },
-        { text: 'I think it ___ rain tomorrow.', options: ['will', 'would', 'should', 'could', 'do'], correct: 0, level: 'menengah', answer: null, status: '' },
+        // 6) PREPOSITION
+        { text: 'The cat is ___ the table.', options: ['in', 'on', 'at', 'to', 'by'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'My school is ___ Jalan Merdeka No. 7.', options: ['in', 'on', 'at', 'to', 'by'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: 'We usually study English ___ Monday morning.', options: ['in', 'on', 'at', 'by', 'for'], correct: 1, level: 'sulit', answer: null, status: '' },
 
-        // TEXT - NARRATIVE TEXT
-        {
-          text: 'What is the correct order of narrative text structure?',
-          options: ['Complication - Orientation - Resolution', 'Orientation - Complication - Resolution', 'Resolution - Orientation - Complication', 'Orientation - Resolution - Complication', 'Complication - Resolution - Orientation'],
-          correct: 1,
-          level: 'sulit',
-          answer: null,
-          status: '',
-        },
-        { text: '"Once upon a time" is usually found in the ___ of narrative text.', options: ['complication', 'resolution', 'orientation', 'climax', 'conclusion'], correct: 2, level: 'sulit', answer: null, status: '' },
+        // 7) VERB
+        { text: 'She ___ to school by bicycle.', options: ['go', 'goes', 'going', 'went', 'gone'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'Pick the correct base form to complete: They have ___ their homework.', options: ['do', 'did', 'done', 'doing', 'does'], correct: 2, level: 'sulit', answer: null, status: '' },
 
-        // TEXT - DESCRIPTIVE TEXT
-        {
-          text: 'Which sentence is commonly used in descriptive text?',
-          options: ['First, we need to prepare the ingredients', 'The cat has soft, white fur', 'Yesterday, I went to the beach', 'Finally, we reached our destination', 'I will visit my grandmother tomorrow'],
-          correct: 1,
-          level: 'menengah',
-          answer: null,
-          status: '',
-        },
-        { text: 'Descriptive text usually uses ___ tense.', options: ['simple past', 'simple future', 'simple present', 'past perfect', 'future perfect'], correct: 2, level: 'menengah', answer: null, status: '' },
+        // 8) USE OF "CAN"
+        { text: 'Dina ___ swim very well.', options: ['can', 'must', 'should', 'may', 'will'], correct: 0, level: 'menengah', answer: null, status: '' },
+        { text: '___ you help me carry these books?', options: ['Must', 'Can', 'Should', 'May', 'Would'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'We ___ not enter the lab without permission.', options: ['can', "can't", 'could', 'may', 'able'], correct: 1, level: 'sulit', answer: null, status: '' },
 
-        // TEXT - RECOUNT TEXT
-        { text: 'Which word is often used to start a recount text?', options: ['Once upon a time', 'Last week', 'Tomorrow', 'Every day', 'Usually'], correct: 1, level: 'menengah', answer: null, status: '' },
-        {
-          text: 'The language feature of recount text includes ___',
-          options: ['simple present tense', 'simple future tense', 'simple past tense', 'present continuous tense', 'past continuous tense'],
-          correct: 2,
-          level: 'sulit',
-          answer: null,
-          status: '',
-        },
+        // 9) TIME
+        { text: 'The meeting starts at ___.', options: ['seven o’clock', 'yesterday', 'tomorrow', 'last week', 'soon'], correct: 0, level: 'menengah', answer: null, status: '' },
+        { text: 'We have English ___ Tuesdays and Thursdays.', options: ['at', 'on', 'in', 'by', 'for'], correct: 1, level: 'sulit', answer: null, status: '' },
 
-        // VOCABULARY - BODY PARTS
-        { text: 'We use our ___ to see.', options: ['ears', 'nose', 'mouth', 'eyes', 'hands'], correct: 3, level: 'menengah', answer: null, status: '' },
-        { text: 'The ___ is used for hearing.', options: ['eye', 'ear', 'nose', 'mouth', 'hand'], correct: 1, level: 'menengah', answer: null, status: '' },
+        // 10) ADVERB OF FREQUENCY
+        { text: 'He ___ arrives late to school.', options: ['always', 'never', 'often', 'sometimes', 'seldom'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'We ___ go to the library after class (about 70% of the time).', options: ['always', 'usually', 'often', 'rarely', 'never'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: 'Choose the correct position: She ___ eats breakfast at home.', options: ['eats always', 'always eats', 'eat always', 'is always eat', 'eating always'], correct: 1, level: 'sulit', answer: null, status: '' },
 
-        // VOCABULARY - PROFESSIONS
-        { text: 'A person who teaches students is called a ___', options: ['doctor', 'nurse', 'teacher', 'farmer', 'driver'], correct: 2, level: 'menengah', answer: null, status: '' },
-        { text: 'Who works in a hospital and treats patients?', options: ['Teacher', 'Doctor', 'Farmer', 'Driver', 'Chef'], correct: 1, level: 'menengah', answer: null, status: '' },
+        // 11) PRONOUN
+        { text: 'This book is mine, not ___.', options: ['your', 'yours', 'you', 'her', 'their'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'Ani and Budi are siblings. ___ live near my house.', options: ['He', 'She', 'It', 'They', 'Them'], correct: 3, level: 'sulit', answer: null, status: '' },
 
-        // VOCABULARY - TRANSPORTATION
-        { text: 'Which transportation can fly?', options: ['Car', 'Bus', 'Train', 'Airplane', 'Bicycle'], correct: 3, level: 'menengah', answer: null, status: '' },
-        { text: 'We usually take a ___ to cross the ocean.', options: ['car', 'bus', 'train', 'ship', 'bicycle'], correct: 3, level: 'menengah', answer: null, status: '' },
+        // 12) COMPARATIVE & SUPERLATIVE
+        { text: 'This road is ___ than that one.', options: ['wide', 'wider', 'widest', 'more wide', 'most wide'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'Mount Everest is the ___ mountain in the world.', options: ['high', 'higher', 'highest', 'more high', 'most high'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: 'Of the three cars, the red one is the ___.', options: ['fast', 'faster', 'fastest', 'most fast', 'more fast'], correct: 2, level: 'sulit', answer: null, status: '' },
 
-        // VOCABULARY - WEATHER
-        { text: "When it's ___, we need an umbrella.", options: ['sunny', 'cloudy', 'windy', 'rainy', 'hot'], correct: 3, level: 'menengah', answer: null, status: '' },
-        { text: 'The opposite of "hot" weather is ___', options: ['warm', 'cool', 'cold', 'sunny', 'windy'], correct: 2, level: 'menengah', answer: null, status: '' },
+        // 13) WH-QUESTIONS
+        { text: '___ is your birthday?', options: ['What', 'Where', 'When', 'Why', 'How'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: '___ are you late? Because the bus broke down.', options: ['What', 'Where', 'When', 'Why', 'Who'], correct: 3, level: 'menengah', answer: null, status: '' },
+        { text: '___ book is this? It is Andi’s.', options: ['Who', 'Whom', 'Whose', 'Which', 'What'], correct: 2, level: 'sulit', answer: null, status: '' },
 
         // READING COMPREHENSION
+        // 14) MAIN IDEA QUESTIONS
         {
-          text: 'Read this text: "Tom is a pilot. He flies airplanes every day. He likes his job very much because he can travel to many countries." What is Tom\'s profession?',
-          options: ['Teacher', 'Doctor', 'Pilot', 'Driver', 'Farmer'],
-          correct: 2,
+          text: 'Text: "Many students join the eco-club to plant trees and clean the school yard." What is the main idea?',
+          options: ['Students hate trees', 'Eco-club activities at school', 'Teachers assign too much homework', 'Planting is dangerous', 'School yard is small'],
+          correct: 1,
           level: 'menengah',
           answer: null,
           status: '',
         },
         {
-          text: 'From the text above, why does Tom like his job?',
-          options: ["Because it's easy", 'Because he gets high salary', 'Because he can travel to many countries', 'Because he works at home', 'Because he has many friends'],
-          correct: 2,
+          text: 'Text: "A volcano is an opening in the earth that can release lava and ash." The main idea is ___',
+          options: ['How to make lava', 'Definition of a volcano', 'The biggest volcano', 'Volcanoes are safe', 'Earth is flat'],
+          correct: 1,
           level: 'menengah',
           answer: null,
           status: '',
         },
-
-        // GRAMMAR - COMPARISON
-        { text: 'Mount Everest is the ___ mountain in the world.', options: ['high', 'higher', 'highest', 'more high', 'most high'], correct: 2, level: 'sulit', answer: null, status: '' },
-        { text: 'My bag is ___ than yours.', options: ['heavy', 'heavier', 'heaviest', 'more heavy', 'most heavy'], correct: 1, level: 'menengah', answer: null, status: '' },
-
-        // PREPOSITIONS
-        { text: 'The students are ___ the classroom.', options: ['in', 'on', 'at', 'under', 'above'], correct: 0, level: 'menengah', answer: null, status: '' },
-        { text: 'The meeting will start ___ Monday.', options: ['in', 'on', 'at', 'by', 'for'], correct: 1, level: 'menengah', answer: null, status: '' },
-
-        // QUESTION FORMATION
-        { text: '___ old are you?', options: ['What', 'Where', 'When', 'How', 'Why'], correct: 3, level: 'menengah', answer: null, status: '' },
-        { text: '___ color is your favorite?', options: ['What', 'Where', 'When', 'How', 'Why'], correct: 0, level: 'menengah', answer: null, status: '' },
-
-        // MODAL VERBS
-        { text: 'Students ___ wear uniform to school.', options: ['can', 'could', 'must', 'might', 'would'], correct: 2, level: 'menengah', answer: null, status: '' },
-        { text: '___ you please help me carry this bag?', options: ['Can', 'Must', 'Should', 'Will', 'May'], correct: 0, level: 'menengah', answer: null, status: '' },
-
-        // SYNONYMS AND ANTONYMS
-        { text: 'The synonym of "clever" is ___', options: ['stupid', 'smart', 'lazy', 'tired', 'angry'], correct: 1, level: 'menengah', answer: null, status: '' },
-        { text: 'The antonym of "easy" is ___', options: ['simple', 'hard', 'soft', 'light', 'fast'], correct: 1, level: 'menengah', answer: null, status: '' },
-
-        // TEXT TYPES
-        { text: 'A recipe is an example of ___ text.', options: ['narrative', 'descriptive', 'procedure', 'recount', 'report'], correct: 2, level: 'sulit', answer: null, status: '' },
         {
-          text: 'The main purpose of a report text is to ___',
-          options: ['entertain readers', 'tell past events', 'give general information', 'persuade readers', 'describe specific things'],
+          text: 'Text: "Budi practices badminton every afternoon to join the city tournament." The main idea focuses on ___',
+          options: ['Budi’s hobby and goal', 'City traffic', 'Morning routine', 'Cooking skills', 'Reading habits'],
+          correct: 0,
+          level: 'sulit',
+          answer: null,
+          status: '',
+        },
+
+        // 15) STATED DETAIL QUESTIONS
+        { text: 'Text: "The library opens at 8 a.m. and closes at 4 p.m." When does the library close?', options: ['2 p.m.', '3 p.m.', '4 p.m.', '5 p.m.', '6 p.m.'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: 'Text: "Rani bought two notebooks and a blue pen." What color is the pen?', options: ['Red', 'Blue', 'Black', 'Green', 'Yellow'], correct: 1, level: 'menengah', answer: null, status: '' },
+        {
+          text: 'Text: "The bus to the museum arrives every 30 minutes." How often does it arrive?',
+          options: ['Every 10 minutes', 'Every 20 minutes', 'Every 30 minutes', 'Every hour', 'Twice a day'],
           correct: 2,
           level: 'sulit',
           answer: null,
           status: '',
         },
 
-        // DIALOGUE
-        { text: 'A: "Thank you for your help." B: "___"', options: ["You're welcome", "I'm sorry", 'Excuse me', 'How are you', 'See you later'], correct: 0, level: 'menengah', answer: null, status: '' },
-        { text: 'What do you say when you want to borrow something?', options: ['Give me that', 'I want that', 'May I borrow this?', "That's mine", 'I need it'], correct: 2, level: 'menengah', answer: null, status: '' },
-
-        // GENERAL KNOWLEDGE
+        // 16) UNSTATED DETAIL QUESTIONS
         {
-          text: 'Which sentence shows future plan?',
-          options: ['I study English every day', 'I studied English yesterday', 'I am going to study English tomorrow', 'I have studied English', 'I was studying English'],
-          correct: 2,
+          text: 'Text: "Maya wears a raincoat and brings an umbrella." Which detail is NOT stated?',
+          options: ['It is raining', 'She brings an umbrella', 'She wears a raincoat', 'She prepares for wet weather', 'She is Maya'],
+          correct: 0,
+          level: 'menengah',
+          answer: null,
+          status: '',
+        },
+        { text: 'Text: "The café sells coffee, tea, and sandwiches." Which is NOT mentioned?', options: ['Coffee', 'Tea', 'Sandwiches', 'Cake', 'Drinks'], correct: 3, level: 'menengah', answer: null, status: '' },
+        {
+          text: 'Text: "Our class visited the zoo last Friday to study animals." Which is NOT stated?',
+          options: ['The visit was on Friday', 'They studied animals', 'They visited a zoo', 'They fed the tigers', 'It was a class activity'],
+          correct: 3,
           level: 'sulit',
           answer: null,
           status: '',
         },
-        { text: 'The correct plural form of "foot" is ___', options: ['foots', 'feet', 'footes', 'foot', 'feets'], correct: 1, level: 'sulit', answer: null, status: '' },
+
+        // 17) IMPLIED DETAIL QUESTIONS
+        { text: 'Text: "Riko turned off the fan and put on a jacket." We can infer that the weather is ___', options: ['hot', 'rainy', 'cold', 'windy', 'sunny'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: 'Text: "The lights are off and the shop door is locked." It implies the shop is ___', options: ['open', 'closing soon', 'closed', 'busy', 'new'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: 'Text: "Sita brought a camera to the beach." This implies she plans to ___', options: ['swim', 'sleep', 'take photos', 'cook', 'read'], correct: 2, level: 'sulit', answer: null, status: '' },
+
+        // 18) VOCABULARY IN CONTEXT
+        { text: 'Text: "The road is slippery, so drive carefully." The word "slippery" means ___', options: ['rough', 'wet and smooth', 'dry and safe', 'dusty', 'crowded'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'Text: "Please discard the bottle in the bin." The word "discard" is closest in meaning to ___', options: ['keep', 'fix', 'throw away', 'buy', 'borrow'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: 'Text: "The museum exhibits ancient tools." The word "ancient" means ___', options: ['very new', 'very old', 'expensive', 'popular', 'useful'], correct: 1, level: 'sulit', answer: null, status: '' },
+
+        // 19) "WHERE" QUESTIONS
+        { text: 'Where do we usually borrow books?', options: ['Library', 'Cafeteria', 'Gym', 'Laboratory', 'Garage'], correct: 0, level: 'menengah', answer: null, status: '' },
+        { text: 'Where does a pilot work?', options: ['Hospital', 'Airport', 'Market', 'Bank', 'Farm'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'Where can we see many kinds of fish?', options: ['Zoo', 'Museum', 'Aquarium', 'Park', 'Library'], correct: 2, level: 'sulit', answer: null, status: '' },
+
+        // VOCABULARY CLOZE
+        // 20) NUMBER
+        { text: 'I have ___ pencils and one eraser.', options: ['two', 'twelve', 'second', 'twice', 'tense'], correct: 0, level: 'menengah', answer: null, status: '' },
+        { text: 'Fifty plus twenty equals ___.', options: ['sixty', 'seventy', 'eighty', 'ninety', 'forty'], correct: 1, level: 'sulit', answer: null, status: '' },
+
+        // 21) VEHICLE
+        { text: 'A ___ has two wheels and is powered by pedaling.', options: ['bus', 'bicycle', 'car', 'train', 'ship'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'A ___ carries many people on the road and stops at stations.', options: ['boat', 'truck', 'bus', 'scooter', 'helicopter'], correct: 2, level: 'sulit', answer: null, status: '' },
+
+        // 22) PLACES
+        { text: 'We buy medicine at the ___.', options: ['bakery', 'pharmacy', 'library', 'cinema', 'factory'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'Tourists see paintings and sculptures in a ___.', options: ['market', 'museum', 'school', 'stadium', 'warehouse'], correct: 1, level: 'menengah', answer: null, status: '' },
+
+        // 23) THINGS IN ROOM
+        { text: 'You sleep on a ___.', options: ['desk', 'bed', 'chair', 'shelf', 'carpet'], correct: 1, level: 'menengah', answer: null, status: '' },
+        { text: 'Books are usually kept on a ___.', options: ['mirror', 'wardrobe', 'bookshelf', 'pillow', 'blanket'], correct: 2, level: 'menengah', answer: null, status: '' },
+        { text: 'Turn on the ___ to get more light.', options: ['drawer', 'lamp', 'curtain', 'door', 'clock'], correct: 1, level: 'sulit', answer: null, status: '' },
       ];
 
       let current = 0;
@@ -402,24 +410,24 @@
         const q = questions[current];
         const container = document.getElementById('question-container');
         container.innerHTML = `
-        <div class="question">
-          <h3>Soal No. ${current + 1}</h3>
-          <p>${q.text}</p>
-          <ul class="options">
-            ${q.options
-              .map(
-                (opt, idx) => `
-              <li>
-                <label>
-                  <input type="radio" name="answer" value="${idx}" ${q.answer == idx ? 'checked' : ''} onclick="selectAnswer(${idx})" ${examFinished ? 'disabled' : ''}>
-                  ${opt}
-                </label>
-              </li>
-            `
-              )
-              .join('')}
-          </ul>
-        </div>`;
+              <div class="question">
+                <h3>Soal No. ${current + 1}</h3>
+                <p>${q.text}</p>
+                <ul class="options">
+                  ${q.options
+                    .map(
+                      (opt, idx) => `
+                    <li>
+                      <label>
+                        <input type="radio" name="answer" value="${idx}" ${q.answer == idx ? 'checked' : ''} onclick="selectAnswer(${idx})" ${examFinished ? 'disabled' : ''}>
+                        ${opt}
+                      </label>
+                    </li>
+                  `
+                    )
+                    .join('')}
+                </ul>
+              </div>`;
         renderNumberList();
       }
 
@@ -488,25 +496,32 @@
 
         if (!confirm('Apakah kamu yakin ingin menyelesaikan ujian?')) return;
 
-        let total = 0;
         let nilai = 0;
+        let benar = 0;
+        let salah = 0;
 
         questions.forEach((q) => {
           if (q.answer !== null) {
             if (q.answer === q.correct) {
-              nilai += q.level === 'sulit' ? 4 : 2;
+              benar++;
+              nilai += 4; // jawaban benar +4
+            } else {
+              salah++;
+              nilai -= 1; // jawaban salah -1
             }
           }
-          total += q.level === 'sulit' ? 4 : 2;
+          // jika tidak dijawab (null) → nilai tetap 0
         });
 
         examFinished = true;
         const skorDiv = document.getElementById('skor-akhir');
         skorDiv.innerHTML = `
-          <strong>Skor akhir:</strong> ${nilai} / ${total} poin
-          <br>
-          <button class="detail-button" onclick="showReview()">Lihat Detail Jawaban</button>
-        `;
+    <strong>Skor akhir:</strong> ${nilai} poin
+    <br>
+    <small>(Benar: ${benar} | Salah: ${salah} | Kosong: ${questions.length - benar - salah})</small>
+    <br>
+    <button class="detail-button" onclick="showReview()">Lihat Detail Jawaban</button>
+  `;
         skorDiv.style.display = 'block';
         renderQuestion(); // Refresh to disable inputs
       }
@@ -532,20 +547,20 @@
             statusClass = 'incorrect';
             statusText = 'Salah';
             answerInfo = `
-              <div class="answer-info">
-                Jawaban Anda: <span class="wrong-answer">${q.options[q.answer]}</span> ✗<br>
-                Jawaban yang benar: <span class="correct-answer">${q.options[q.correct]}</span>
-              </div>
-            `;
+                    <div class="answer-info">
+                      Jawaban Anda: <span class="wrong-answer">${q.options[q.answer]}</span> ✗<br>
+                      Jawaban yang benar: <span class="correct-answer">${q.options[q.correct]}</span>
+                    </div>
+                  `;
           }
 
           reviewHTML += `
-            <div class="review-item ${statusClass}">
-              <div class="question-text">Soal ${index + 1}: ${q.text}</div>
-              <div style="margin: 8px 0; font-weight: bold;">${statusText}</div>
-              ${answerInfo}
-            </div>
-          `;
+                  <div class="review-item ${statusClass}">
+                    <div class="question-text">Soal ${index + 1}: ${q.text}</div>
+                    <div style="margin: 8px 0; font-weight: bold;">${statusText}</div>
+                    ${answerInfo}
+                  </div>
+                `;
         });
 
         reviewList.innerHTML = reviewHTML;
